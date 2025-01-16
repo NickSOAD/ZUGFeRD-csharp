@@ -644,6 +644,12 @@ namespace s2industries.ZUGFeRD
 
                 Writer.WriteElementString("cbc", "ChargeIndicator", charges[0].ChargeIndicator ? "true" : "false");
 
+                if(!String.IsNullOrEmpty(charges[0].Reason))
+                    Writer.WriteElementString("cbc", "AllowanceChargeReason", charges[0].Reason);
+                
+                if(charges[0].ChargePercentage != null)
+                    Writer.WriteElementString("cbc", "MultiplierFactorNumeric", charges[0].ChargePercentage.ToString());
+                    
                 Writer.WriteStartElement("cbc", "Amount"); // BT-147
                 Writer.WriteAttributeString("currencyID", this.Descriptor.Currency.EnumToString());
                 Writer.WriteValue(_formatDecimal(charges[0].ActualAmount));
